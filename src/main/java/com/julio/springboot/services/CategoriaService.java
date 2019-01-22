@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.julio.springboot.domain.Categoria;
 import com.julio.springboot.repositories.CategoriaRepository;
-
 import com.julio.springboot.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -20,5 +19,10 @@ public class CategoriaService {
 		Optional<Categoria> obj = repo.findById(id);//método novo para spring2.x.x era findOne
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+	}
+	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 }
