@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.julio.springboot.domain.Categoria;
+import com.julio.springboot.dto.CategoriaDTO;
 import com.julio.springboot.repositories.CategoriaRepository;
 import com.julio.springboot.services.exceptions.DataIntegrityException;
 import com.julio.springboot.services.exceptions.ObjectNotFoundException;
@@ -55,6 +56,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 	
 	private void updateData(Categoria newObj, Categoria obj) {
